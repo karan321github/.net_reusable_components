@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\reusable_components.props" />
+</Project>

@@ -1,0 +1,6 @@
+@reusable_components_HostAddress = http://localhost:5123
+
+GET {{reusable_components_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
