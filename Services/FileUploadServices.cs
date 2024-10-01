@@ -2,11 +2,13 @@
 {
     private readonly IWebHostEnvironment _environment;
     private readonly ILogger<FileUploadService> _logger;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public FileUploadService(IWebHostEnvironment environment, ILogger<FileUploadService> logger)
+    public FileUploadService(IWebHostEnvironment environment, ILogger<FileUploadService> logger, IHttpContextAccessor httpContextAccessor)
     {
         _environment = environment;
         _logger = logger;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public async Task<string> UploadFileAsync(IFormFile file, int maxFileSizeInBytes)
@@ -19,7 +21,7 @@
                 return null; // File is too large
             }
 
-            // Use WebRootPath or ContentRootPath for the file save path
+            
             var baseFolderPath = _environment.WebRootPath ?? _environment.ContentRootPath;
             if (baseFolderPath == null)
             {
@@ -37,17 +39,31 @@
 
             // Generate a unique file name
             var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+
+            // Build the file path for saving the file
             var filePath = Path.Combine(uploadsFolderPath, uniqueFileName);
 
-            // Save the file
+            // Save the file to the local file system
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(fileStream);
             }
 
-            // Return the relative file path to be used for preview
-            var relativeFilePath = Path.Combine("uploads", uniqueFileName);
-            return relativeFilePath; // Return only the relative path
+            // Access HttpContext via IHttpContextAccessor
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null)
+            {
+                _logger.LogError("HttpContext is null.");
+                return null;
+            }
+
+            // Create the public URL to access the file
+            var baseUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}";
+            //var relativeFilePath = Path.Combine("uploads", uniqueFileName).Replace("\\", "/");
+            var fileUrl = $"{baseUrl}/api/FileUpload/preview/{uniqueFileName}";
+
+            // Return the public file URL
+            return fileUrl;
         }
         catch (Exception ex)
         {

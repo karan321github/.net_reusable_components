@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="uploads\**" />
-    <Content Remove="uploads\**" />
-    <EmbeddedResource Remove="uploads\**" />
-    <None Remove="uploads\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Controllers\WeatherForecastController.cs" />
   </ItemGroup>
 
@@ -22,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <_GlobalJsonStartingDir Remove="uploads\**" />
+    <Folder Include="uploads\" />
   </ItemGroup>
 
 </Project>

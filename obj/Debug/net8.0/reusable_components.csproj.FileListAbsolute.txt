@@ -30,3 +30,4 @@ C:\Users\Karan\source\repos\reusable_components\reusable_components\obj\Debug\ne
 C:\Users\Karan\source\repos\reusable_components\reusable_components\obj\Debug\net8.0\reusable_components.pdb
 C:\Users\Karan\source\repos\reusable_components\reusable_components\obj\Debug\net8.0\reusable_components.genruntimeconfig.cache
 C:\Users\Karan\source\repos\reusable_components\reusable_components\obj\Debug\net8.0\ref\reusable_components.dll
+C:\Users\Karan\source\repos\reusable_components\reusable_components\obj\Debug\net8.0\reusable_components.sourcelink.json
