@@ -43,17 +43,15 @@
             // Build the file path for saving the file
             var filePath = Path.Combine(uploadsFolderPath, uniqueFileName);
 
-<<<<<<< HEAD
-            // Save the file to the local file system
-=======
+
             
->>>>>>> 3dbb94e73b0632ed98e9cd3f6cdf84b1bbd9f5f3
+
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(fileStream);
             }
 
-<<<<<<< HEAD
+
             // Access HttpContext via IHttpContextAccessor
             var httpContext = _httpContextAccessor.HttpContext;
             if (httpContext == null)
@@ -69,11 +67,11 @@
 
             // Return the public file URL
             return fileUrl;
-=======
+
            
             var relativeFilePath = Path.Combine("uploads", uniqueFileName);
             return relativeFilePath; 
->>>>>>> 3dbb94e73b0632ed98e9cd3f6cdf84b1bbd9f5f3
+
         }
         catch (Exception ex)
         {
